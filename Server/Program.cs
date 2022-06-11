@@ -1,6 +1,6 @@
 global using BlazorMiamiPizza.Shared;
 global using Microsoft.EntityFrameworkCore;
-using BlazorMiamiPizza.Server.Data;
+global using BlazorMiamiPizza.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);

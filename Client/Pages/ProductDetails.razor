@@ -1,13 +1,13 @@
 ﻿@page "/product/{id:int}"
 @inject IProductService ProductService
 
-@if(product == null)
+@if (product == null)
 {
     <span>@message</span>
 }
 else
 {
-    <div class="media"> 
+    <div class="media">
         <div class="media-img-wrapper mr-2">
             <img class="media-img" src="@product.ImageUrl" alt="@product.Title" />
         </div>
@@ -19,8 +19,8 @@ else
             </h4>
         </div>
     </div>
-}
 
+}
 
 @code {
     private Product? product = null;
@@ -31,10 +31,10 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        message = "Загрузка продукта..";
-        var result = await ProductService.GetProduct(Id);
+        message = "Загрузка продукта.....";
 
-        if(!result.Success)
+        var result = await ProductService.GetProduct(Id);
+        if (!result.Success)
         {
             message = result.Message;
         }

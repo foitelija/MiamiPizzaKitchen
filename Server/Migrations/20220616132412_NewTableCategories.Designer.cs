@@ -3,6 +3,7 @@ using BlazorMiamiPizza.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorMiamiPizza.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220616132412_NewTableCategories")]
+    partial class NewTableCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,7 +110,7 @@ namespace BlazorMiamiPizza.Server.Migrations
                             Description = "Бекон, сыры чеддер и пармезан, моцарелла, томаты, соус альфредо, красный лук, чеснок, итальянские травы",
                             ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/b195d75f2371491bb519629500d03f24_292x292.jpeg",
                             Price = 1.99m,
-                            Title = "Карбонара "
+                            Title = "Карбонара"
                         },
                         new
                         {
@@ -117,7 +119,7 @@ namespace BlazorMiamiPizza.Server.Migrations
                             Description = "Горячая закуска с цыпленком, перцем халапеньо, маринованные огурчики, томатами, моцареллой и соусом барбекю в тонкой пшеничной лепешке",
                             ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/0c55068d9fa9432389b848f9b3eb5085_1875x1875.jpeg",
                             Price = 2.99m,
-                            Title = "Острый До-достер"
+                            Title = "Острый Додстер"
                         },
                         new
                         {
@@ -126,7 +128,7 @@ namespace BlazorMiamiPizza.Server.Migrations
                             Description = "Pepsi 1Л",
                             ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/8109d13f041147bdacb115c6b07cccc0_1875x1875.jpeg",
                             Price = 3.99m,
-                            Title = "Pepsi-Co"
+                            Title = "Pepsi"
                         },
                         new
                         {
@@ -135,7 +137,7 @@ namespace BlazorMiamiPizza.Server.Migrations
                             Description = "1 ШТ. Цыпленок, свежие листья салата айсберг, томаты черри, сыры чеддер и пармезан, соус цезарь, пшеничные гренки, итальянские травы",
                             ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/32d83655ee2c4434859a670ce3677d42_1875x1875.jpeg",
                             Price = 8.90m,
-                            Title = "Салат Цезарь "
+                            Title = "Салат Цезарь"
                         });
                 });
 

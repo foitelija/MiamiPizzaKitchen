@@ -9,6 +9,14 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ProductVariant>().HasKey(p => new { p.ProductId, p.ProductTypeId});
+
+            modelBuilder.Entity<ProductType>().HasData(
+                new ProductType { Id = 1, Name = "Маленькая" },
+                new ProductType { Id = 2, Name = "Средняя"},
+                new ProductType { Id = 3, Name = "Большая"}
+                );
+
             modelBuilder.Entity<Category>().HasData(
                 new Category {
                     Id = 1,
@@ -40,7 +48,6 @@
                         Title = "Карбонара",
                         Description = "Бекон, сыры чеддер и пармезан, моцарелла, томаты, соус альфредо, красный лук, чеснок, итальянские травы",
                         ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/b195d75f2371491bb519629500d03f24_292x292.jpeg",
-                        Price = 1.99m,
                         CategoryId = 1,
                     },
                     new Product
@@ -49,7 +56,6 @@
                         Title = "Острый До-достер",
                         Description = "Горячая закуска с цыпленком, перцем халапеньо, маринованные огурчики, томатами, моцареллой и соусом барбекю в тонкой пшеничной лепешке",
                         ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/0c55068d9fa9432389b848f9b3eb5085_1875x1875.jpeg",
-                        Price = 2.99m,
                         CategoryId = 3,
                     },
                     new Product
@@ -58,7 +64,6 @@
                         Title = "Pepsi-Co",
                         Description = "Pepsi 1Л",
                         ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/8109d13f041147bdacb115c6b07cccc0_1875x1875.jpeg",
-                        Price = 3.99m,
                         CategoryId = 2,
                     },
                     new Product
@@ -66,10 +71,30 @@
                         Id = 11,
                         Title = "Салат Цезарь",
                         Description = "1 ШТ. Цыпленок, свежие листья салата айсберг, томаты черри, сыры чеддер и пармезан, соус цезарь, пшеничные гренки, итальянские травы",
-                        ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/32d83655ee2c4434859a670ce3677d42_1875x1875.jpeg",
-                        Price = 8.90m,
+                        ImageUrl= "https://dodopizza-a.akamaihd.net/static/Img/Products/32d83655ee2c4434859a670ce3677d42_1875x1875.jpeg",
                         CategoryId = 4,
                     }
+                );
+
+            modelBuilder.Entity<ProductVariant>().HasData(
+                new ProductVariant
+                {
+                    ProductId = 7,
+                    ProductTypeId = 1,
+                    Price = 13.90m,
+                },
+                new ProductVariant
+                {
+                    ProductId = 7,
+                    ProductTypeId = 2,
+                    Price = 21.90m
+                },
+                new ProductVariant
+                {
+                    ProductId = 7,
+                    ProductTypeId = 3,
+                    Price = 24.30m
+                }
                 );
         }
 
@@ -77,5 +102,7 @@
 
         public DbSet <Product> Products { get; set; }
         public DbSet <Category> Categories{ get; set; }
+        public DbSet <ProductType> ProductTypes { get; set; }
+        public DbSet <ProductVariant> ProductVariants { get; set; }
     }
 }

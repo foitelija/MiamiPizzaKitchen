@@ -28,7 +28,7 @@ namespace BlazorMiamiPizza.Server.Controllers
             var result = await _productService.GetProductAsync(productId);
             return Ok(result);
         }
-        [HttpGet("category/{categoryUrl")]
+        [HttpGet("category/{categoryUrl}")]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductsByCategory(string categoryUrl)
         {
             var result = await _productService.GetProductsByCategory(categoryUrl);

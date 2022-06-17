@@ -2,6 +2,7 @@ global using BlazorMiamiPizza.Shared;
 global using Microsoft.EntityFrameworkCore;
 global using BlazorMiamiPizza.Server.Data;
 global using BlazorMiamiPizza.Server.Services.ProductService;
+global using BlazorMiamiPizza.Server.Services.CategoryService;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

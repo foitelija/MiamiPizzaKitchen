@@ -54,7 +54,7 @@ else
         }
         else if (variants.Count == 1)
         {
-            return $"BYN{variants[0].Price}";
+            return $"BYN {variants[0].Price}";
         }
         decimal minPrice = variants.Min(v => v.Price);
         return $"От {minPrice} BYN";

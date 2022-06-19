@@ -14,7 +14,8 @@
             modelBuilder.Entity<ProductType>().HasData(
                 new ProductType { Id = 1, Name = "Маленькая" },
                 new ProductType { Id = 2, Name = "Средняя"},
-                new ProductType { Id = 3, Name = "Большая"}
+                new ProductType { Id = 3, Name = "Большая"},
+                new ProductType { Id = 4, Name = "ШТ"}
                 );
 
             modelBuilder.Entity<Category>().HasData(
@@ -94,6 +95,24 @@
                     ProductId = 7,
                     ProductTypeId = 3,
                     Price = 24.30m
+                },
+                new ProductVariant
+                {
+                    ProductId =8,
+                    ProductTypeId = 4,
+                    Price = 6.90m
+                },
+                new ProductVariant
+                {
+                    ProductId = 10,
+                    ProductTypeId = 4,
+                    Price = 3.30m
+                },
+                new ProductVariant
+                {
+                    ProductId = 11,
+                    ProductTypeId = 4,
+                    Price = 8.90m
                 }
                 );
         }

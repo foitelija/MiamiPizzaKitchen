@@ -7,5 +7,6 @@
         Task<ServiceResponse<Product>> GetProductAsync(int productId); // получить один продукт
         Task<ServiceResponse<List<Product>>> GetProductsByCategory(string categoryUrl); // получить продукты по категориям
         Task<ServiceResponse<List<Product>>> SearchProducts(string searchText);
+        Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText);
     }
 }

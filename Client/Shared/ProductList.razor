@@ -4,7 +4,7 @@
 @*Короче тут я гружу продукты, можно убрать наверное if и else, в другой какой версии,чтобы продукты быстро отоброжались из БД, но пока что нет*@
 @if (ProductService.Products == null || ProductService.Products.Count == 0)
 {
-    <span>Загружаем все продукты....</span>
+    <span>@ProductService.Message</span>
 }
 else
 {

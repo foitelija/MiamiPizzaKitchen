@@ -6,7 +6,15 @@
 
 <PageTitle>Miami Pizza - so good, so tasty. Order now and be happy!</PageTitle>
 
-<ProductList />
+@if(SearchText == null && CategoryUrl == null)
+{
+    <FeaturedProducts />
+}
+
+else
+{
+    <ProductList />
+}
 
 @code{
     [Parameter]

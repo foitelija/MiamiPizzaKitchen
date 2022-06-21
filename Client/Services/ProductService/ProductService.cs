@@ -50,6 +50,7 @@ namespace BlazorMiamiPizza.Client.Services.ProductService
 
         public async Task SearchProducts(string searchText, int page)
         {
+            LastSearchText = searchText; 
             var result = await _http.GetFromJsonAsync<ServiceResponse<ProductSearchResult>>($"api/product/search/{searchText}/{page}");
             if(result != null && result.Data != null)
             {
@@ -59,7 +60,7 @@ namespace BlazorMiamiPizza.Client.Services.ProductService
             }
             if(Products.Count == 0)
             {
-                Message = "Продуктов нет.";
+                Message = "Ничего не найдено ;(";
             }
             ProductsChanged.Invoke();
         }

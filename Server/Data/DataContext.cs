@@ -45,11 +45,21 @@
             modelBuilder.Entity<Product>().HasData(
                     new Product
                     {
+                        Id = 1,
+                        Title = "Чикен Биб Чикен",
+                        Description = "Куриные кусочки, сладкий перец, сыры чеддер и пармезан, моцарелла, красный лук, соус сладкий чили, соус альфредо",
+                        ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/2fe7d80cc4b34a978841e0e6ac770f5a_584x584.jpeg",
+                        CategoryId = 1,
+                        Featured = true,
+                    },
+                    new Product
+                    {
                         Id = 7,
                         Title = "Карбонара",
                         Description = "Бекон, сыры чеддер и пармезан, моцарелла, томаты, соус альфредо, красный лук, чеснок, итальянские травы",
                         ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/b195d75f2371491bb519629500d03f24_292x292.jpeg",
                         CategoryId = 1,
+                        Featured = true,
                     },
                     new Product
                     {
@@ -66,6 +76,7 @@
                         Description = "Pepsi 1Л",
                         ImageUrl = "https://dodopizza-a.akamaihd.net/static/Img/Products/8109d13f041147bdacb115c6b07cccc0_1875x1875.jpeg",
                         CategoryId = 2,
+                        Featured = true,
                     },
                     new Product
                     {
@@ -78,6 +89,24 @@
                 );
 
             modelBuilder.Entity<ProductVariant>().HasData(
+                new ProductVariant
+                {
+                    ProductId = 1,
+                    ProductTypeId = 1,
+                    Price = 20.90m,
+                },
+                new ProductVariant
+                {
+                    ProductId = 1,
+                    ProductTypeId = 2,
+                    Price = 24.90m,
+                },
+                new ProductVariant
+                {
+                    ProductId = 1,
+                    ProductTypeId = 3,
+                    Price = 28.90m,
+                },
                 new ProductVariant
                 {
                     ProductId = 7,

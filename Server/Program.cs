@@ -4,6 +4,7 @@ global using BlazorMiamiPizza.Server.Data;
 global using BlazorMiamiPizza.Server.Services.ProductService;
 global using BlazorMiamiPizza.Server.Services.CategoryService;
 using Microsoft.AspNetCore.ResponseCompression;
+using BlazorMiamiPizza.Server.Services.CartService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 var app = builder.Build();
 

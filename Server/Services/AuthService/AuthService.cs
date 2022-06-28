@@ -32,7 +32,8 @@ namespace BlazorMiamiPizza.Server.Services.AuthService
 
             return new ServiceResponse<int>
             {
-                Data = user.Id
+                Data = user.Id,
+                Message = "Успешная регистрация."
             };
 
         }

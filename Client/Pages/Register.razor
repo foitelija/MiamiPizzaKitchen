@@ -2,7 +2,7 @@
 @inject IAuthService AuthService
 
 <PageTitle>Регистрация</PageTitle>
-<h3>Register</h3>
+<h3>Регистрация нового пользователя.</h3>
 
 
 <EditForm Model="user" OnValidSubmit="HandleRegistration">
@@ -25,8 +25,8 @@
     <button type="submit" class="btn btn-primary">
         Регистрация
     </button>
-    <div class="text-danger">
-        <span>@errorMessage</span>
+    <div class="@messageCssClass">
+        <span>@message</span>
     </div>
 </EditForm>
 
@@ -34,18 +34,21 @@
 @code {
     UserRegister user = new UserRegister();
 
-    string errorMessage = string.Empty;
+    string message = string.Empty;
+    string messageCssClass = string.Empty;
+
 
     async Task HandleRegistration()
     {
         var result = await AuthService.Register(user);
-        if(!result.Success)
+        message = result.Message;
+        if(result.Success)
         {
-            errorMessage = result.Message;
+            messageCssClass = "text-success";
         }
         else
         {
-            errorMessage = string.Empty;
+            messageCssClass = "text-danger";
         }
     }
 }

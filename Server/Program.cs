@@ -3,8 +3,10 @@ global using Microsoft.EntityFrameworkCore;
 global using BlazorMiamiPizza.Server.Data;
 global using BlazorMiamiPizza.Server.Services.ProductService;
 global using BlazorMiamiPizza.Server.Services.CategoryService;
+global using BlazorMiamiPizza.Server.Services.CartService;
+global using BlazorMiamiPizza.Server.Services.AuthService;
 using Microsoft.AspNetCore.ResponseCompression;
-using BlazorMiamiPizza.Server.Services.CartService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

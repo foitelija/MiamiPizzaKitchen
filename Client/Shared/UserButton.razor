@@ -15,7 +15,7 @@
                 <button class="dropdown-item" @onclick="Logout">Выйти</button>
             </Authorized>
             <NotAuthorized>
-                <a href="login" class="dropdown-item">Войти</a>
+                <a href="login?returnUrl=@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)" class="dropdown-item">Войти</a>
                 <a href="register" class="dropdown-item">Регистрация</a>
             </NotAuthorized>
         </AuthorizeView>

@@ -19,7 +19,7 @@
         <InputText id="email" @bind-Value="user.Password" class="form-control" type = "password" />
         <ValidationMessage For="@(() => user.Password )" />
     </div>
-    <button type="submit" class="btn btn-primary">Войти</button>
+    <button type="submit" class="btn btn-primary" @onclick="HandleLogin">Войти</button>
 </EditForm>
 <div class="text-danger">
     <span>@errorMessage</span>

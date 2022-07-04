@@ -4,6 +4,7 @@ global using BlazorMiamiPizza.Client.Services.ProductService;
 global using BlazorMiamiPizza.Client.Services.CategoryService;
 global using BlazorMiamiPizza.Client.Services.CartService;
 global using BlazorMiamiPizza.Client.Services.AuthService;
+global using Microsoft.AspNetCore.Components.Authorization;
 using Blazored.LocalStorage;
 using BlazorMiamiPizza.Client;
 using Microsoft.AspNetCore.Components.Web;
@@ -20,5 +21,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddOptions();
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 await builder.Build().RunAsync();

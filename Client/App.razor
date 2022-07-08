@@ -2,7 +2,12 @@
 
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(PizzaLayout)" />
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(PizzaLayout)">
+                <NotAuthorized>
+                    <h3>Упс, у вас нет доступа для просмотра страницы.</h3>
+                    <h5>Пожалуйста <a href="login">Авторизуйтесь</a> или <a href="register">Зарегистрируйтесь</a> </h5>
+                </NotAuthorized>    
+            </AuthorizeRouteView>
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
         <NotFound>

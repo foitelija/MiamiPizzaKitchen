@@ -93,7 +93,7 @@ namespace BlazorMiamiPizza.Server.Services.CartService
             var sameItem = await _context.CartItems
                 .FirstOrDefaultAsync(ci => ci.ProductId == cartItem.ProductId &&
                 ci.ProductTypeId == cartItem.ProductTypeId &&
-                ci.UserId == cartItem.UserId);
+                ci.UserId == GetUserID());
             if(sameItem == null)
             {
                 _context.CartItems.Add(cartItem);
@@ -106,6 +106,26 @@ namespace BlazorMiamiPizza.Server.Services.CartService
             await _context.SaveChangesAsync();
 
             return new ServiceResponse<bool> { Data = true };
+        }
+
+        public async Task<ServiceResponse<bool>> UpdateQuantity(CartItem cartItem)
+        {
+            var dbCartItem = await _context.CartItems
+                .FirstOrDefaultAsync(ci => ci.ProductId == cartItem.ProductId &&
+                ci.ProductTypeId == cartItem.ProductTypeId &&
+                ci.UserId == GetUserID());
+            if(dbCartItem == null)
+            {
+                return new ServiceResponse<bool> { Data = false, Success = false, Message = "Не существует"};
+            }
+
+            dbCartItem.Quantity = cartItem.Quantity;
+            await _context.SaveChangesAsync();
+
+            return new ServiceResponse<bool>
+            {
+                Data = true
+            };
         }
     }
 }

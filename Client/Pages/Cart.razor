@@ -60,15 +60,12 @@ else
 
     private async Task LoadCart()
     {
-        if((await CartService.GetCartItems()).Count == 0)
+        await CartService.GetCartItemsCount();
+        cartProducts = await CartService.GetCartProducts();
+
+        if(cartProducts == null || cartProducts.Count == 0)
         {
             message = "Корзина пуста ;(";
-            cartProducts = new List<CartProductResponse>();
-        }
-
-        else
-        {
-            cartProducts = await CartService.GetCartProducts();
         }
     }
 

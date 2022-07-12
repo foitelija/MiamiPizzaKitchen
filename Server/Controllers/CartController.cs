@@ -32,10 +32,16 @@ namespace BlazorMiamiPizza.Server.Controllers
         }
 
         [HttpGet("count")]
-
         public async Task<ActionResult<ServiceResponse<int>>> GetCartItemsCount()
         {
             return await _cartService.GetCartItemsCount();
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult<ServiceResponse<List<CartProductResponse>>>> GetDbCartProducts()
+        {
+            var result = await _cartService.GetDbCartProducts();
+            return Ok(result);
         }
     }
 }

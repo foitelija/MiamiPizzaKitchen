@@ -69,8 +69,7 @@ namespace BlazorMiamiPizza.Server.Services.CartService
             _context.CartItems.AddRange(cartItems);
             await _context.SaveChangesAsync();
 
-            return await GetCartProducts(await _context.CartItems
-                .Where(ci => ci.UserId == GetUserID()).ToListAsync());
+            return await GetDbCartProducts();
         }
 
         public async Task<ServiceResponse<int>> GetCartItemsCount()
@@ -80,6 +79,12 @@ namespace BlazorMiamiPizza.Server.Services.CartService
             {
                 Data = count
             };
+        }
+
+        public async Task<ServiceResponse<List<CartProductResponse>>> GetDbCartProducts()
+        {
+            return await GetCartProducts(await _context.CartItems
+                .Where(ci => ci.UserId == GetUserID()).ToListAsync());
         }
     }
 }

@@ -1,13 +1,20 @@
-﻿namespace BlazorMiamiPizza.Server.Services.CartService
+﻿using System.Security.Claims;
+
+namespace BlazorMiamiPizza.Server.Services.CartService
 {
     public class CartService : ICartService
     {
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CartService(DataContext context)
+        public CartService(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
+
+        private int GetUserID() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
         public async Task<ServiceResponse<List<CartProductResponse>>> GetCartProducts(List<CartItem> cartItems)
         {
             var result = new ServiceResponse<List<CartProductResponse>>
@@ -56,14 +63,14 @@
             return result;
         }
 
-        public async Task<ServiceResponse<List<CartProductResponse>>> StoreCartItems(List<CartItem> cartItems, int userId)
+        public async Task<ServiceResponse<List<CartProductResponse>>> StoreCartItems(List<CartItem> cartItems)
         {
-            cartItems.ForEach(cartItems => cartItems.UserId = userId);
+            cartItems.ForEach(cartItems => cartItems.UserId = GetUserID());
             _context.CartItems.AddRange(cartItems);
             await _context.SaveChangesAsync();
 
             return await GetCartProducts(await _context.CartItems
-                .Where(ci => ci.UserId == userId).ToListAsync());
+                .Where(ci => ci.UserId == GetUserID()).ToListAsync());
         }
     }
 }

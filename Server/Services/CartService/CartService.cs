@@ -72,5 +72,14 @@ namespace BlazorMiamiPizza.Server.Services.CartService
             return await GetCartProducts(await _context.CartItems
                 .Where(ci => ci.UserId == GetUserID()).ToListAsync());
         }
+
+        public async Task<ServiceResponse<int>> GetCartItemsCount()
+        {
+            var count = (await _context.CartItems.Where(ci => ci.UserId == GetUserID()).ToListAsync()).Count;
+            return new ServiceResponse<int>
+            {
+                Data = count
+            };
+        }
     }
 }

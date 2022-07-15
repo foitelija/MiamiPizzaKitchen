@@ -23,15 +23,15 @@ namespace BlazorMiamiPizza.Server.Services.OrderService
         {
             var products = (await _cartService.GetDbCartProducts()).Data;
             decimal totalPrice = 0;
-            products.ForEach(products => totalPrice += products.Price * products.Quantity);
+            products.ForEach(product => totalPrice += product.Price * product.Quantity);
 
             var orderItems = new List<OrderItem>();
-            products.ForEach(products => orderItems.Add(new OrderItem
+            products.ForEach(product => orderItems.Add(new OrderItem
             {
-                ProductId = products.ProductId,
-                ProductTypeId = products.ProductTypeId,
-                Quantity = products.Quantity,
-                TotalPrice = products.Price * products.Quantity
+                ProductId = product.ProductId,
+                ProductTypeId = product.ProductTypeId,
+                Quantity = product.Quantity,
+                TotalPrice = product.Price * product.Quantity
             }));
 
             var order = new Order

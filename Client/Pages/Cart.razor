@@ -1,5 +1,6 @@
 ﻿@page "/cart"
 @inject ICartService CartService
+@inject IOrderService OrderService
 
 <PageTitle>Корзина</PageTitle>
 <h3>Корзина</h3>
@@ -40,6 +41,8 @@ else
        </div>
 
     </div>
+
+    <button @onclick="PlaceOrder" class="btn btn-success float-end mt-1">Заказать</button>
 }
 
 @code {
@@ -77,5 +80,10 @@ else
             product.Quantity = 1;
         }
         await CartService.UpdateQuantity(product);
+    }
+
+    private async Task PlaceOrder()
+    {
+        await OrderService.PlaceOrder();
     }
 }

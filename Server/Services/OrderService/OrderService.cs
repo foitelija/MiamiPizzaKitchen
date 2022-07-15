@@ -28,8 +28,8 @@ namespace BlazorMiamiPizza.Server.Services.OrderService
             var orderItems = new List<OrderItem>();
             products.ForEach(product => orderItems.Add(new OrderItem
             {
-                ProductId = product.ProductId,
                 ProductTypeId = product.ProductTypeId,
+                ProductId = product.ProductId,
                 Quantity = product.Quantity,
                 TotalPrice = product.Price * product.Quantity
             }));

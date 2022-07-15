@@ -9,7 +9,12 @@
 {
     <span>@message</span>
 }
-
+else if(orderPlaced)
+{
+    <span>Спасибо за ваш заказ! Ожидайте связи с менеджером ;) 
+        Ваш заказ <a href="orders">здесь.</a>
+    </span>
+}
 else
 {
     <div>
@@ -48,9 +53,11 @@ else
 @code {
     List<CartProductResponse> cartProducts = null;
     string message = "Загрузка корзины....";
+    bool orderPlaced = false;
 
     protected override async Task OnInitializedAsync()
     {
+        orderPlaced = false;
         await LoadCart();
     }
 
@@ -85,5 +92,7 @@ else
     private async Task PlaceOrder()
     {
         await OrderService.PlaceOrder();
+        await CartService.GetCartItemsCount();
+        orderPlaced = true;
     }
 }

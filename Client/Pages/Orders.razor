@@ -3,31 +3,32 @@
 
 <h3>Orders</h3>
 
-@if(orders == null)
+@if (orders == null)
 {
-    <span>Загрузка ваших заказов.....</span>
+    <span>Загрузка ваших заказов...</span>
 }
-else if(orders.Count <= 0)
+else if (orders.Count <= 0)
 {
-    <span>Вы не сделали ещё ни одного заказа, но вы можете сделать это<a href="/">здесь.</a> </span>
+    <span>Вы не сделали ещё ни одного заказа, но вы можете сделать это <a href="/">здесь.</a> </span>
 }
-else if(orders.Count > 1)
+else
 {
     foreach (var order in orders)
     {
-            <div class="container">
-                <div class="image-wrapper">
-                    <img src="@order.ProductImageUrl" class="image">
-                </div>
-                <div class="details">
-                    <h4>@order.Product</h4>
-                    <span>@order.OrderDate</span><br/>
-                    <a href="orders/@order.Id">Детально</a>
-                </div>
-                <div class="order-price">@order.TotalPrice</div>
+        <div class="container">
+            <div class="image-wrapper">
+                <img src="@order.ProductImageUrl" class="image" />
             </div>
+            <div class="details">
+                <h4>@order.Product</h4>
+                <span>@order.OrderDate</span><br />
+                <a href="orders/@order.Id">Подробней</a>
+            </div>
+            <div class="order-price">$@order.TotalPrice</div>
+        </div>
     }
 }
+
 
 @code {
     List<OrderOverviewResponse> orders = null;

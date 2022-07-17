@@ -21,5 +21,16 @@ namespace BlazorMiamiPizza.Server.Controllers
             var session = await _paymentService.CreateCheckoutSession();
             return Ok(session.Url);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<bool>>> FullfillOrder()
+        {
+            var response = await _paymentService.FullfillOrder(Request);
+            if(!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+            return Ok(response);
+        }
     }
 }

@@ -6,6 +6,7 @@ global using BlazorMiamiPizza.Server.Services.CategoryService;
 global using BlazorMiamiPizza.Server.Services.CartService;
 global using BlazorMiamiPizza.Server.Services.AuthService;
 global using BlazorMiamiPizza.Server.Services.OrderService;
+global using BlazorMiamiPizza.Server.Services.PaymentService;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -29,6 +30,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

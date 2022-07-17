@@ -13,7 +13,7 @@ namespace BlazorMiamiPizza.Server.Services.PaymentService
             IAuthService authService,IOrderService orderService)
         {
             //stripe API key
-            StripeConfiguration.ApiKey = "disk E=>api_keys.txt";
+            StripeConfiguration.ApiKey = "";
 
 
             _cartService = cartService;
@@ -50,8 +50,8 @@ namespace BlazorMiamiPizza.Server.Services.PaymentService
                 },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "https://localhost:727/order-success",
-                CancelUrl = "https://localhost:727/cart"
+                SuccessUrl = "https://localhost:44390/order-success",
+                CancelUrl = "https://localhost:44390/cart"
             };
 
             var service = new SessionService();

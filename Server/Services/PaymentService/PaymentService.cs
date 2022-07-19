@@ -10,13 +10,13 @@ namespace BlazorMiamiPizza.Server.Services.PaymentService
         private readonly IOrderService _orderService;
         
         //webHook secret key.
-        const string secret = "";
+        const string secret = "whsec_71134c40f06fac16516e1990e8441224eb2768c70ca0eafccc1201887e3d4f16";
 
         public PaymentService(ICartService cartService,
             IAuthService authService,IOrderService orderService)
         {
             //stripe API key
-            StripeConfiguration.ApiKey = "";
+            StripeConfiguration.ApiKey = "sk_test_51L3dCeCVfTeuarsVrQo0DWNeu6Mrwon0xJPgQaO4Oc3H8IKwSbCReHJWRLyoLD3BNbL6boK2MHOQhinenGZ8EXEZ00T4RPwySU";
 
 
             _cartService = cartService;

@@ -1,4 +1,5 @@
 ﻿@inject ICategoryService CategoryService
+@implements IDisposable
 
 <div class="top-row ps-3 navbar navbar-dark navbar-toggler-wrapper">
     <div class="container-fluid">
@@ -39,5 +40,12 @@
     protected override async Task OnInitializedAsync()
     {
         await CategoryService.GetCategories();
+        CategoryService.OnChange += StateHasChanged;
+    }
+    //auto refresh page after editing.
+    //IDispose автоматически обновляет данные, после каких-либо изменений.
+    public void Dispose()
+    {
+        CategoryService.OnChange -= StateHasChanged;
     }
 }

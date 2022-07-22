@@ -8,4 +8,4 @@
         Task GetProductTypes();
     }
 }
-}
+

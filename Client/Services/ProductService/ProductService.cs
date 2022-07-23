@@ -16,7 +16,21 @@ namespace BlazorMiamiPizza.Client.Services.ProductService
         public int CurrentPage { get; set; } = 1;
         public int PageCount { get; set; } = 0;
         public string LastSearchText { get; set; } = string.Empty;
+        public List<Product> AdminProducts { get; set; }
+
         public event Action ProductsChanged;
+
+        public async Task GetAdminProducts()
+        {
+            var reslut = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/admin");
+            AdminProducts = reslut.Data;
+            CurrentPage = 1;
+            PageCount = 0;
+            if(AdminProducts.Count == 0)
+            {
+                Message = "Продукты не найдены.";
+            }
+        }
 
         public async Task<ServiceResponse<Product>> GetProduct(int productId)
         {

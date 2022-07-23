@@ -3,7 +3,8 @@
     public interface IProductService
     {
         event Action ProductsChanged;
-        List<Product> Products { get; set; }
+        List<Product> Products { get; set; } //для заглузки
+        List<Product> AdminProducts { get; set; } //для загрузки всей шелухи
         string Message { get; set; }
         int CurrentPage { get; set; }
         int PageCount { get; set; } 
@@ -12,5 +13,6 @@
         Task<ServiceResponse<Product>> GetProduct(int productId);
         Task SearchProducts(string searchText, int page);
         Task<List<string>> GetProductSearchSuggestions(string searchText);
+        Task GetAdminProducts();
     }
 }

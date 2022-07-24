@@ -28,9 +28,9 @@ namespace BlazorMiamiPizza.Client.Services.ProductService
             return newProduct;
         }
 
-        public async Task DeleteProduct(int productId)
+        public async Task DeleteProduct(Product product)
         {
-            var result = await _http.DeleteAsync($"api/product/admin/{productId}");
+            var result = await _http.DeleteAsync($"api/product/{product.Id}");
         }
 
         public async Task GetAdminProducts()

@@ -176,13 +176,15 @@ else
         if(product.isNew)
         {
             var result = await ProductService.CreateProduct(product);
-            NaviManager.NavigateTo($"admin/product/{result.Id}");
+            NaviManager.NavigateTo("/admin/products");
+            //NaviManager.NavigateTo($"admin/product/{result.Id}");
         }
         else
         {
             product.isNew = false;
             product = await ProductService.UpdateProduct(product);
-            NaviManager.NavigateTo($"admin/product/{product.Id}", true);
+            NaviManager.NavigateTo("/admin/products", true);
+            //NaviManager.NavigateTo($"admin/product/{product.Id}", true);
         }
     }
 
@@ -192,7 +194,7 @@ else
         $"Хотите удалить '{product.Title}'?");
         if(confirmed)
         {
-            await ProductService.DeleteProduct(Id); // изи заменить на product + в интерфейсе
+            await ProductService.DeleteProduct(product);
         NaviManager.NavigateTo("admin/products");
         } 
     }

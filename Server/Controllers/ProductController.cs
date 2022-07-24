@@ -36,10 +36,10 @@ namespace BlazorMiamiPizza.Server.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("admin"), Authorize(Roles = "Admin")]
-        public async Task<ActionResult<ServiceResponse<bool>>> DeleteProduct(int productId)
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ServiceResponse<bool>>> DeleteProduct(int id)
         {
-            var result = await _productService.DeleteProduct(productId);
+            var result = await _productService.DeleteProduct(id);
             return Ok(result);
         }
 

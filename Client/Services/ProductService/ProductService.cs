@@ -20,6 +20,19 @@ namespace BlazorMiamiPizza.Client.Services.ProductService
 
         public event Action ProductsChanged;
 
+        public async Task<Product> CreateProduct(Product product)
+        {
+            var result = await _http.PostAsJsonAsync("api/product/admin", product);
+            var newProduct = (await result.Content
+                .ReadFromJsonAsync<ServiceResponse<Product>>()).Data;
+            return newProduct;
+        }
+
+        public async Task DeleteProduct(int productId)
+        {
+            var result = await _http.DeleteAsync($"api/product/admin/{productId}");
+        }
+
         public async Task GetAdminProducts()
         {
             var reslut = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/admin");
@@ -77,6 +90,12 @@ namespace BlazorMiamiPizza.Client.Services.ProductService
                 Message = "Ничего не найдено ;(";
             }
             ProductsChanged.Invoke();
+        }
+
+        public async Task<Product> UpdateProduct(Product product)
+        {
+            var result = await _http.PutAsJsonAsync($"api/product/admin", product);
+            return (await result.Content.ReadFromJsonAsync<ServiceResponse<Product>>()).Data;
         }
     }
 }

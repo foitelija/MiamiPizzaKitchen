@@ -3,10 +3,12 @@
     public class ProductService : IProductService
     {
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProductService(DataContext context)
+        public ProductService(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ServiceResponse<List<Product>>> GetAdminProducts()
@@ -38,10 +40,22 @@
         public async Task<ServiceResponse<Product>> GetProductAsync(int productId)
         {
             var response = new ServiceResponse<Product>();
-            var product = await _context.Products
-                .Include(p => p.Variants.Where(v=>v.isVisible && !v.isDeleted))
+            Product product = null;
+
+            if (_httpContextAccessor.HttpContext.User.IsInRole("Admin"))
+            {
+                product = await _context.Products
+                .Include(p => p.Variants.Where(v => !v.isDeleted))
+                .ThenInclude(v => v.ProductType)
+                .FirstOrDefaultAsync(p => p.Id == productId && !p.isDeleted);
+            }
+            else
+            {
+                product = await _context.Products
+                .Include(p => p.Variants.Where(v => v.isVisible && !v.isDeleted))
                 .ThenInclude(v => v.ProductType)
                 .FirstOrDefaultAsync(p => p.Id == productId && p.isVisible && !p.isDeleted);
+            }
             if (product == null)
             {
                 response.Success = false;

@@ -209,6 +209,7 @@
             dbProduct.ImageUrl = product.ImageUrl;
             dbProduct.CategoryId = product.CategoryId;
             dbProduct.isVisible = product.isVisible;
+            dbProduct.Featured = product.Featured;
 
             foreach(var variant in product.Variants)
             {

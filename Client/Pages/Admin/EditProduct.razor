@@ -1,0 +1,180 @@
+﻿@page "/admin/product"
+@page "/admin/product/{id:int}"
+@inject IProductService ProductService
+@inject IProductTypeService ProductTypeService
+@inject ICategoryService CategoryService
+@inject NavigationManager NaviManager
+
+
+@if(loading)
+{
+    <span>@msg</span>
+}
+else
+{
+    @if(product.isEditing)
+    {
+        <h3>Изменить @product.Title</h3>
+    }
+    else if(product.isNew)
+    {
+        <h3>Создать новый</h3>
+    }
+
+    <EditForm Model="product" OnValidSubmit="AddOrUpdateProduct">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="mb-0">
+            <label for="title">Название</label>
+            <InputText id="title" @bind-Value="product.Title" class="form-control"></InputText>
+        </div>
+        <div class="mb-0">
+            <label for="imageUrl">Ссылка на каритнку</label>
+            <InputText id="imageUrl" @bind-Value="product.ImageUrl" class="form-control"></InputText>
+        </div>
+        <div class="mb-0">
+            <img src="@product.ImageUrl">
+        </div>
+        <div class="mb-0">
+            <label for="description">Описание</label>
+            <InputTextArea id="description" @bind-Value="product.Description" class="form-control"></InputTextArea>
+        </div>
+        <hr />
+        <div class="header">
+            <div class="col">Тип продукта</div>
+            <div class="col">Цена со скидкой</div>
+            <div class="col">Цена без скидки</div>
+            <div class="col">
+
+            </div>
+        </div>
+        @foreach (var variant in product.Variants)
+        {
+            <div class="row">
+                <div class="col">
+                    <InputSelect disabled="@variant.isDeleted" @bind-Value="variant.ProductTypeId" class="form-control">
+                        @foreach (var productType in ProductTypeService.ProductTypes)
+                       {
+                           <option value="@productType.Id.ToString()">@productType.Name</option>
+                       }
+                    </InputSelect>
+                </div>
+                <div class="col">
+                    <InputNumber @bind-Value="variant.Price" class="form-control" disabled="@variant.isDeleted"></InputNumber>
+                </div>
+                <div class="col">
+                    <InputNumber @bind-Value="variant.OriginalPrice" class="form-control" disabled="@variant.isDeleted"></InputNumber>
+                </div>
+                <div class="col col-visible">
+                    <InputCheckbox @bind-Value="variant.isVisible" style="transform:scale(1.5,1.5)" disabled="@variant.isDeleted"></InputCheckbox>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" disabled="@variant.isDeleted" @onclick="@(() => RemoveVariant(variant.ProductTypeId))">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        }
+        <button type="button" class="btn btn-primary" @onclick="AddVariant">
+            <i class="oi oi-plus"></i> Добавить
+        </button>
+        <hr />
+        <div class="mb-0"> 
+            <label for="category">Категория</label>
+            <InputSelect id="category" @bind-Value="product.CategoryId" class="form-control">
+                @foreach (var category in CategoryService.AdminCategories)
+               {
+                   <option value="@category.Id">@category.Name</option>
+               }
+            </InputSelect>
+        </div>
+        <hr />
+        <div class="form-check">
+            <InputCheckbox id="featured" @bind-Value="product.Featured" class="form-check-input"></InputCheckbox>
+            <label for="featured" class="form-check-label">Рек?</label>
+        </div>
+        <div class="form-check">
+            <InputCheckbox id="visible" @bind-Value="product.isVisible" class="form-check-input"></InputCheckbox>
+            <label for="visible" class="form-check-label">Видно?</label>
+        </div>
+        <hr />
+        <button type="submit" class="btn btn-primary float-end">@btnText</button>
+        <ValidationSummary></ValidationSummary>
+    </EditForm>
+}
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Product product = new Product();
+    bool loading = true;
+    string btnText = "";
+    string msg = "Загрузка...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ProductTypeService.GetProductTypes();
+        await CategoryService.GetAdminCategories();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(Id == 0)
+        {
+            product = new Product { isNew = true };
+            btnText = "Создать";
+        }
+        else
+        {
+            Product dbProduct = (await ProductService.GetProduct(Id)).Data;
+            if(dbProduct == null)
+            {
+                msg = $"Продукта с ID '{Id}' не существует.";
+            }
+            product = dbProduct;
+            product.isEditing = true;
+            btnText = "Обновить";
+        }
+        loading = false;
+    }
+
+    void RemoveVariant(int productTypeId)
+    {
+        var variant = product.Variants.Find(v => v.ProductTypeId == productTypeId);
+        if(variant == null)
+        {
+            return;
+        }
+        if(variant.isNew)
+        {
+            product.Variants.Remove(variant);
+        }
+        else
+        {
+            variant.isDeleted = true;
+        }
+    }
+
+    void AddVariant()
+    {
+        product.Variants
+        .Add(new ProductVariant { isNew = true, ProductId = product.Id });
+    }
+
+    async void AddOrUpdateProduct()
+    {
+        if(product.isNew)
+        {
+            var result = await ProductService.CreateProduct(product);
+            NaviManager.NavigateTo($"admin/product/{result.Id}");
+        }
+        else
+        {
+            product.isNew = false;
+            product = await ProductService.UpdateProduct(product);
+            NaviManager.NavigateTo($"admin/product/{product.Id}", true);
+        }
+    }
+}

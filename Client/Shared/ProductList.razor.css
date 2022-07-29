@@ -19,17 +19,21 @@
     margin-right: 15px;
     margin-bottom: 30px;
 }
-
-@media(max-width: 1023.98px)
-{
-    .media{
-        flex-direction: column;
-
-    }
-
-    .media-img-wrapper{
-        width: 100%;
-        height: auto;
-    }
+.media {
+    display: inline-block;
+    height: 300px;
+    margin: 1em;
+    width: 300px;
 }
+
+    @media(max-width: 1023.98px) {
+        .media {
+            flex-direction: column;
+        }
+
+        .media-img-wrapper {
+            width: 100%;
+            height: auto;
+        }
+    }
 

@@ -2,17 +2,19 @@
 @page "/search/{searchText}/{page:int}"
 @page "/{categoryUrl}"
 @inject IProductService ProductService
+@*@implements IDisposable*@
 
 
 <PageTitle>Miami Pizza - so good, so tasty. Order now and be happy!</PageTitle>
 
 @if(SearchText == null && CategoryUrl == null)
 {
-    <FeaturedProducts />
-    <div class="top-row px-2">
+    <div>
+        <FeaturedProducts />
+    </div>
+    <div>
         <ProductList />
     </div>
-    
 }
 
 else
@@ -29,16 +31,22 @@ else
     [Parameter]
     public int Page { get; set; } = 1;
 
-
     protected override async Task OnParametersSetAsync()
     {
-        if(SearchText != null)
+        if (SearchText != null)
         {
-            await ProductService.SearchProducts(SearchText,Page);
+            await ProductService.SearchProducts(SearchText, Page);
         }
         else
         {
-            await ProductService.GetProducts(CategoryUrl);
+            if(CategoryUrl != null)
+            {
+                await ProductService.GetProducts(CategoryUrl); 
+            }
+            else
+            {
+                await ProductService.GetAllProducts();
+            }
         }
     }
 }

@@ -45,6 +45,14 @@ namespace BlazorMiamiPizza.Client.Services.ProductService
             }
         }
 
+        public async Task GetAllProducts()
+        {
+            var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product");
+            if (result != null && result.Data != null)
+                Products = result.Data;
+            ProductsChanged.Invoke();
+        }
+
         public async Task<ServiceResponse<Product>> GetProduct(int productId)
         {
             var result = await _http.GetFromJsonAsync<ServiceResponse<Product>>($"api/product/{productId}");

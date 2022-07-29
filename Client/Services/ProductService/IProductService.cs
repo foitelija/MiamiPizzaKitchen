@@ -13,6 +13,7 @@
         Task<ServiceResponse<Product>> GetProduct(int productId);
         Task SearchProducts(string searchText, int page);
         Task<List<string>> GetProductSearchSuggestions(string searchText);
+        Task GetAllProducts();
         Task GetAdminProducts();
         Task<Product> CreateProduct(Product product);
         Task<Product> UpdateProduct(Product product);
